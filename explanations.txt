@@ -1,0 +1,3 @@
+REST - represantation state transfer
+
+Podemos utilizar a integração com outros tipos de aplicação para passarmos dados ( Estados ) entre essas aplicações 
