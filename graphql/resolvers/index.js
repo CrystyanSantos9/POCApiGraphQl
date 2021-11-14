@@ -1,4 +1,4 @@
-const { getAllProducts, createProduct, deleteProduct, updateProduct} = require('./products')
+const { getAllProducts, createProduct, deleteProduct, updateProduct, createImageOnProduct, deleteImageOnProduct } = require('./products')
 
 //Resolve queries
 const resolvers = {
@@ -8,7 +8,9 @@ const resolvers = {
     Mutation: {
         createProduct,
         deleteProduct,
-        updateProduct
+        updateProduct,
+        createImageOnProduct,
+        deleteImageOnProduct
     }
 }
 

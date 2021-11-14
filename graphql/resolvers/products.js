@@ -20,10 +20,24 @@ const createProduct = async (context, {input}) => {
     }
 }
 
-const deleteProduct = async (context, { id }) => {
+const createImageOnProduct = async (context, {productId, input})=>{
+    const { description, url } = input 
+    await Product.addImage(productId, [description, url ])
+    return {
+        description, 
+        url 
+    }
+}
+
+const deleteProduct =async (context, { id }) => {
     await Product.remove(id)
     return true 
-}
+} 
+
+const deleteImageOnProduct = async (context, { productId, imageId }) => {
+    await Product.removeImage(productId, imageId)
+    return true 
+} 
 
 const updateProduct = async (context, {id, input}) =>{
    const oldProduct = await Product.findAllById(id)
@@ -54,5 +68,7 @@ module.exports = {
     getAllProducts,
     createProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    createImageOnProduct,
+    deleteImageOnProduct
 }

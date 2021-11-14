@@ -1,9 +1,4 @@
 const up = async(connection) => {
-
-    await connection.query(`
-    SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
-`)
-
     await connection.query(`
         CREATE TABLE categories (
             id INT NOT NULL AUTO_INCREMENT,

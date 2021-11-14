@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mysql:
+    build: 
+      dockerfile: ./docker-mysql
+      context: .
+    image: mysql5-img
+    container_name: mysql5-ctn
+    ports:
+      - "3336:3306"
+    volumes:
+      - volume-db-fm:/var/lib/mysql
+volumes:
+  volume-db-fm:
+    external: true

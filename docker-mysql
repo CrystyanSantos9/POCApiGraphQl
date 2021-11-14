@@ -1,0 +1,5 @@
+FROM mysql:5
+
+ENV MYSQL_ROOT_PASSWORD senha
+
+COPY /etc/mysql/my.cnf  /etc/mysql/my.cnf
