@@ -1,22 +1,34 @@
 const db = require('../db')
 const Product = require('../models/products')(db)
+const jwt = require('jsonwebtoken')
+const secret = 'segredo_em_poder_do_servidor'
 
 const getAll = async (req, res) =>{
-    let products = null 
-    try{
-        if(req.query.categoryId){
-            products =  await Product.findAllByCategory(req.query.categoryId)
-        }else{
-            products =  await Product.findAll()
+    if(req.headers && req.headers.authorization){
+        const header = req.headers.authorization
+        // criando vetor ["Bear", "token"]
+        const headerParts = header.split(' ')
+        try{
+             //pegando token 
+            jwt.verify(headerParts[1], secret)
+            let products = null 
+            if(req.query.categoryId){
+                products =  await Product.findAllByCategory(req.query.categoryId)
+            }else{
+                products =  await Product.findAll()
+            }
+           return res.send({
+                products
+            })
+        }catch(err){
+
         }
-        res.send({
-            products
-        })
-    }catch(err){
-        res.status(500).send('Internal Server Error')
-        console.log( { error: err })
     }
-    
+
+    res.send({
+        error: 'wrong auth token'
+    })
+
 }
 
 //Pega produto por id
