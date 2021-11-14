@@ -1,34 +1,21 @@
 const db = require('../db')
 const Product = require('../models/products')(db)
 const jwt = require('jsonwebtoken')
-const secret = 'segredo_em_poder_do_servidor'
+
 
 const getAll = async (req, res) =>{
-    if(req.headers && req.headers.authorization){
-        const header = req.headers.authorization
-        // criando vetor ["Bear", "token"]
-        const headerParts = header.split(' ')
-        try{
-             //pegando token 
-            jwt.verify(headerParts[1], secret)
-            let products = null 
-            if(req.query.categoryId){
-                products =  await Product.findAllByCategory(req.query.categoryId)
-            }else{
-                products =  await Product.findAll()
-            }
-           return res.send({
-                products
-            })
-        }catch(err){
-
-        }
+    //quem mandou essa requisição?
+    const user = res.locals.user 
+    console.log('Quem mandou essa requisição: ', user)
+    let products = null 
+    if(req.query.categoryId){
+         products =  await Product.findAllByCategory(req.query.categoryId)
+    }else{
+            products =  await Product.findAll()
     }
-
-    res.send({
-        error: 'wrong auth token'
-    })
-
+        return res.send({
+            products
+        })
 }
 
 //Pega produto por id

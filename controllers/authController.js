@@ -12,7 +12,7 @@ const auth = async (req, res) =>{
     if(USERS[user] && USERS[user] === 'abc123'){
         const token = jwt.sign(
             {user
-            },secret, { expiresIn: '2 days'})
+            }, secret, { expiresIn: '2 days'})
 
             //envia token e encerra conexao 
             return res.send({
