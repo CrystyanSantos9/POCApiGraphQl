@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 
 const needsAuth = (req, res, next ) =>{
-    console.log('passamos pelo middleware')
     if(req.headers && req.headers.authorization){
         const header = req.headers.authorization
         const headerParts = header.split(' ')
